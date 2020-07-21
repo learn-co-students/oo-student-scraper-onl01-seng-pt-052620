@@ -27,6 +27,11 @@ class Scraper
 
   def self.scrape_profile_page(profile_url)
     #scraping individual student's profile page to get further info about student
+    html = open("#{profile_url}")
+    doc = Nokogiri::HTML(html)
+
+    #return values should be key/value pairs that describe a student
+    # Twitter URL, LinkedIn URL, GitHub URL, blog URL, profile quote, and bio.
   end
 
 end
