@@ -26,7 +26,6 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-    #scraping individual student's profile page to get further info about student
     html = open("#{profile_url}")
     doc = Nokogiri::HTML(html)
 
