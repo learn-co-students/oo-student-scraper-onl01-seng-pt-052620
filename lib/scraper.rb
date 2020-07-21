@@ -29,14 +29,46 @@ class Scraper
     html = open("#{profile_url}")
     doc = Nokogiri::HTML(html)
 
-      profile_page_info = {
-        :twitter => doc.css(".social-icon-container a")[0].attribute("href").value,
-        :linkedin => doc.css(".social-icon-container a")[1].attribute("href").value,
-        :github => doc.css(".social-icon-container a")[2].attribute("href").value,
-        :blog => doc.css(".social-icon-container a")[3].attribute("href").value,
-        :profile_quote => doc.css(".profile-quote").text,
-        :bio => doc.css(".description-holder p").text
-      }
-  end 
+    profile_info = {}
+
+    doc.css(".social-icon-container a").each do |social_media|
+      if social_media.attribute("href").value.include?("twitter")
+        profile_info[:twitter] = doc.css(".social-icon-container a").attribute("href").value
+      elsif social_media.attribute("href").value.include?("linkedin")
+        profile_info[:linkedin] = doc.css(".social-icon-container a").attribute("href").value
+      elsif social_media.attribute("href").value.include?("github")
+        profile_info[:github] = doc.css(".social-icon-container a").attribute("href").value
+      else
+        profile_info[:blog] = doc.css(".social-icon-container a").attribute("href").value
+      end 
+    end 
+
+    profile_info[:profile_quote] = doc.css(".profile-quote").text
+    profile_info[:bio] = doc.css(".description-holder p").text
+
+      # profile_page_info = {
+      #   :twitter => doc.css(".social-icon-container a")[0].attribute("href").value,
+      #   :linkedin => doc.css(".social-icon-container a")[1].attribute("href").value,
+      #   :github => doc.css(".social-icon-container a")[2].attribute("href").value,
+      #   :blog => doc.css(".social-icon-container a")[3].attribute("href").value,
+      #   :profile_quote => doc.css(".profile-quote").text,
+      #   :bio => doc.css(".description-holder p").text
+      # }
+      binding.pry
+      profile_info 
+    end
+  
 
 end
+
+
+# if doc.css(".social-icon-container a").size == 4
+#   :twitter => doc.css(".social-icon-container a")[0].attribute("href").value,
+#   :linkedin => doc.css(".social-icon-container a")[1].attribute("href").value,
+#   :github => doc.css(".social-icon-container a")[2].attribute("href").value,
+#   :blog => doc.css(".social-icon-container a")[3].attribute("href").value,
+#   :profile_quote => doc.css(".profile-quote").text,
+#   :bio => doc.css(".description-holder p").text
+# elsif doc.css(".social-icon-container a").size == 4
+
+#   doc.css(".social-icon-container a")[0].attribute("href").value.include?("linkedin")
