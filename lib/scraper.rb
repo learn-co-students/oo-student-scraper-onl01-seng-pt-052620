@@ -31,11 +31,12 @@ class Scraper
 
     links.each do |link|
       link = link['href']
-      if link.include?("twitter")
+      case
+      when link.include?("twitter")
         profile[:twitter] = link
-      elsif link.include?("linkedin")
+      when link.include?("linkedin")
         profile[:linkedin] = link
-      elsif link.include?("github")
+      when link.include?("github")
         profile[:github] = link
       else
         profile[:blog] = link
