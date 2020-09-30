@@ -8,6 +8,7 @@ class Scraper
     html = Nokogiri::HTML(URI.open(index_url))
     student_cards = html.css('.student-card')
     students = []
+
     student_cards.each do |sc|
       students << {
         :name => sc.css('.student-name').text,
@@ -15,13 +16,13 @@ class Scraper
         :profile_url => sc.css('a')[0]['href']
       }
     end
+
     return students
   end
 
   def self.scrape_profile_page(profile_url)
     html = Nokogiri::HTML(URI.open(profile_url))
     links = html.css('.social-icon-container a')
-    name = html.css('.profile-name').text
 
     profile = {
       :profile_quote => html.css('.profile-quote').text,
@@ -42,7 +43,6 @@ class Scraper
     end
 
     return profile
-
   end
 
 end
