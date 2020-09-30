@@ -15,7 +15,7 @@ class Scraper
         :profile_url => sc.css('a')[0]['href']
       }
     end
-    students
+    return students
   end
 
   def self.scrape_profile_page(profile_url)
